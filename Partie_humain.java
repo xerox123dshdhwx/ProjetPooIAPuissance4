@@ -14,17 +14,19 @@ public class Partie_humain {
     private int colonnes;
     private String joueur_1 = "Joueur 1";
     private String joueur_2 = "Joueur 2";
+    private int num_partie;
 
 
     /** Constructeur d'objet sans paramètres de la classe Partie_humain, permettant de créer un partie
      * sur une grille 6x7, les noms des joueurs sont initialisés à "Joueur 1" et "Joueur 2"
      * */
 
-    public Partie_humain(){
+    public Partie_humain(int n){
         lignes = 6;
         colonnes = 7;
         tab_de_jeu = new int[6][7];
         nb_coups = 0;
+        num_partie = n;
     }
 
     /** Constructeur d'objet de la classe Partie_humain permettant de créer un partie
@@ -34,13 +36,14 @@ public class Partie_humain {
      * @param j2 String, correspond au nom du joueur 2
      */
 
-    public Partie_humain(String j1, String j2){
+    public Partie_humain(String j1, String j2, int n){
         lignes = 6;
         colonnes = 7;
         tab_de_jeu = new int[6][7];
         joueur_1 = j1;
         joueur_2 = j2;
         nb_coups = 0;
+        num_partie = n;
     }
 
     /** Constructeur d'objet de la classe Partie_humain permettant de choisir la taille de la grille
@@ -50,11 +53,12 @@ public class Partie_humain {
      * @param c int, correspond à la largeur de la grille
      */
 
-    public Partie_humain(int l, int c){
+    public Partie_humain(int l, int c, int n){
         tab_de_jeu = new int[l][c];
         lignes = l;
         colonnes = c;
         nb_coups = 0;
+        num_partie = n;
     }
 
     /** Constructeur d'objet de la classe Partie_humain permettant de choisir la taille de la grille
@@ -66,13 +70,14 @@ public class Partie_humain {
      * @param j2 String, correspond au nom du joueur 2
      */
 
-    public Partie_humain(int l, int c, String j1, String j2){
+    public Partie_humain(int l, int c, String j1, String j2, int n){
         tab_de_jeu = new int[l][c];
         lignes = l;
         colonnes = c;
         joueur_1 = j1;
         joueur_2 = j2;
         nb_coups = 0;
+        num_partie = n;
     }
 
 
