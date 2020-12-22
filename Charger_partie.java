@@ -55,13 +55,17 @@ public class Charger_partie {
     public static Partie_humain relancer_save(String save){
 
         boolean interputeur = true;
+
+        char c_num = save.charAt(0);
+        int num_save = Integer.parseInt(String.valueOf(c_num));
+
         char l_c = save.charAt(2);
         int l = Integer.parseInt(String.valueOf(l_c));
 
         char c_c = save.charAt(4);
         int c = Integer.parseInt(String.valueOf(c_c));
 
-        Partie_humain prth = New_partie.partie_custom_humain(c,l);
+        Partie_humain prth = New_partie.partie_custom_humain(c,l, num_save);
         prth.setColonnes(l);
         prth.setLignes(c);
         int x = 6;
@@ -70,7 +74,7 @@ public class Charger_partie {
 
             for(int k = 0; k<= c+k;k++){
                 if(k!=0 && (k)%l == 0){
-                        break;
+                    break;
                 }else if(save.charAt(k) == '@'){
                     interputeur = false;
                     break;
@@ -141,27 +145,27 @@ public class Charger_partie {
      * @return le nombre de save au total
      */
     public static int compteur_du_nombre_de_save(){
-    int cpts = 0 ;
-    Scanner fluxEntree = null;
-    try
-    {
-        fluxEntree = new Scanner(new FileInputStream("leFichier.txt"));
-    }
-    catch(FileNotFoundException e)
-    { System.out.println("Error ouverture fichier. Dans compteur du nombre de save");
-        System.exit(0);
-    }
-    String ligne = fluxEntree.nextLine( );
-
-    while(fluxEntree.hasNextLine()) {
-        ligne = fluxEntree.nextLine();
-        if(ligne != null) {
-            cpts++;
+        int cpts = 0 ;
+        Scanner fluxEntree = null;
+        try
+        {
+            fluxEntree = new Scanner(new FileInputStream("leFichier.txt"));
         }
-    }
-    fluxEntree.close();
+        catch(FileNotFoundException e)
+        { System.out.println("Error ouverture fichier. Dans compteur du nombre de save");
+            System.exit(0);
+        }
+        String ligne = fluxEntree.nextLine( );
+
+        while(fluxEntree.hasNextLine()) {
+            ligne = fluxEntree.nextLine();
+            if(ligne != null) {
+                cpts++;
+            }
+        }
+        fluxEntree.close();
         return cpts+1;
-}
+    }
 
     /**
      * Fonction qui prend une une partie "save" et qui la rajoute a la fin du fichier de save
@@ -172,19 +176,19 @@ public class Charger_partie {
      */
     public static void injecter_save(String save,File fichier_originel) throws FileNotFoundException {
 
-    File fichier = new File("leFichier_copie.txt");
-    PrintWriter writer = new PrintWriter("leFichier_copie.txt");
-    String[] tab_teste = new String[10];
+        File fichier = new File("leFichier_copie.txt");
+        PrintWriter writer = new PrintWriter("leFichier_copie.txt");
+        String[] tab_teste = new String[10];
 
-    Scanner fluxEntree = null;
-    try
-    {
-        fluxEntree = new Scanner(new FileInputStream("leFichier.txt"));
-    }
-    catch(FileNotFoundException e)
-    { System.out.println("Error ouverture fichier. Dans injecter save");
-        System.exit(0);
-    }
+        Scanner fluxEntree = null;
+        try
+        {
+            fluxEntree = new Scanner(new FileInputStream("leFichier.txt"));
+        }
+        catch(FileNotFoundException e)
+        { System.out.println("Error ouverture fichier. Dans injecter save");
+            System.exit(0);
+        }
         String ligne;
 
         System.err.println(compteur_du_nombre_de_save() + "avant la boucle");
@@ -201,8 +205,7 @@ public class Charger_partie {
         fichier_originel.delete();
         fichier.renameTo(fichier_originel);
 
-}
-
+    }
 
 }
 
