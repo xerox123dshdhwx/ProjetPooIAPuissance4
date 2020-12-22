@@ -11,7 +11,7 @@ public class Deroulement_partie {
      *
      * @param game représente une partie de Puissance 4 en cours
      */
-    public static void tour(Partie_humain game){
+    public static String tour(Partie_humain game){
             if(game.getNb_coups() %2 == 0){
                 System.out.println("Au tour de " + game.getJoueur_1() + " de jouer !");
                 add_pion(game, 1);
@@ -219,8 +219,8 @@ public class Deroulement_partie {
     public static String save(Partie_humain p){
         int[][] temp = p.getTab_de_jeu();
         //Préparation des premiers caractères (@ lignes colonnes )
-        String sauvegarde;
-        sauvegarde = "@" + p.getLignes() + " " + p.getColonnes() + " ";
+        String sauvegarde = String.valueOf(Charger_partie.compteur_du_nombre_de_save());
+        sauvegarde = sauvegarde + "@" + p.getLignes() + " " + p.getColonnes() + " ";
         for(int i=p.getLignes()-1; i>=0; i--){
             for(int j=0; j<p.getColonnes(); j++){
                 if(temp[i][j] == 1){
@@ -235,7 +235,4 @@ public class Deroulement_partie {
         sauvegarde = sauvegarde + "@";
         return sauvegarde;
     }
-
 }
-
-
