@@ -14,8 +14,8 @@ public class New_partie {
      * Cree une partie avec parametre par defaut
      * @return une nouvelle partie par defaut
      */
-    public static Partie_humain partie_humain(){
-        return new Partie_humain();
+    public static Partie_humain partie_humain(int n){
+        return new Partie_humain(n);
     }
 
     /**
@@ -27,8 +27,8 @@ public class New_partie {
      * @param j2 represente le nom du joueur 2
      * @return une nouvelle partie
      */
-    public static Partie_humain partie_custom_humain_j(int l, int c, String j1 , String j2){
-        return new Partie_humain(l,c,j1,j2);
+    public static Partie_humain partie_custom_humain_j(int l, int c, String j1 , String j2, int n){
+        return new Partie_humain(l,c,j1,j2, n);
     }
 
     /**
@@ -37,8 +37,8 @@ public class New_partie {
      * @param c represente les colones
      * @return une nouvelle partie de humain
      */
-    public static Partie_humain partie_custom_humain(int l, int c){
-        return new Partie_humain(l,c);
+    public static Partie_humain partie_custom_humain(int l, int c, int n){
+        return new Partie_humain(l,c,n);
     }
 
     /**
@@ -47,8 +47,8 @@ public class New_partie {
      * @param j2 represente le nom du joueur 2
      * @return une nouvelle partie
      */
-    public static Partie_humain partie_entre_humain_j(String j1 , String j2){
-        return new Partie_humain(j1,j2);
+    public static Partie_humain partie_entre_humain_j(String j1 , String j2, int n){
+        return new Partie_humain(j1,j2, n);
     }
 
     /**
@@ -71,9 +71,9 @@ public class New_partie {
                 int c = sc.nextInt();
                 System.out.println("Ecrivez un entier representant le nombre de ligne ");
                 int l = sc.nextInt();
-                prth = partie_custom_humain_j(l,c,nom_du_joueur_1,nom_du_joueur_2);
+                prth = partie_custom_humain_j(l,c,nom_du_joueur_1,nom_du_joueur_2, Charger_partie.compteur_du_nombre_de_save());
             }else{
-                prth = partie_entre_humain_j(nom_du_joueur_1,nom_du_joueur_2);
+                prth = partie_entre_humain_j(nom_du_joueur_1,nom_du_joueur_2, Charger_partie.compteur_du_nombre_de_save());
             }
         }else{
             System.out.println("voulez vous choisir de customiser la taille de la grille ? (true or false) :");
@@ -82,9 +82,9 @@ public class New_partie {
                 int c = sc.nextInt();
                 System.out.println("Ecrivez un entier representant le nombre de ligne ");
                 int l = sc.nextInt();
-                prth = partie_custom_humain(l,c);
+                prth = partie_custom_humain(l,c, Charger_partie.compteur_du_nombre_de_save());
             }else{
-                prth = partie_humain();
+                prth = partie_humain(Charger_partie.compteur_du_nombre_de_save());
             }
         }
         return prth;
