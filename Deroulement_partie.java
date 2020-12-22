@@ -20,6 +20,7 @@ public class Deroulement_partie {
                 add_pion(game, 2);
             }
             game.setNb_coups(game.getNb_coups()+1);
+            return save(game);
     }
 
     /** Fonction qui permet à un joueur d'ajouter un de ses pions dans la grille
