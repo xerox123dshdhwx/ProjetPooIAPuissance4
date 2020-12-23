@@ -9,8 +9,8 @@ import java.util.Random;
  */
 
 public class Partie_IA {
-    Partie_humain partie;
-    int niveau_IA;
+    private Partie_humain partie;
+    private int niveau_IA;
 
 
     /** Constructeur d'objet sans paramètres de la classe Partie_IA, permettant de créer un partie
@@ -69,17 +69,42 @@ public class Partie_IA {
 
     /** Fonction qui permet à l'IA naïve de poser un pion aléatoirement dans la grille de jeu
      *
-     * @param game la partie en cours
+     * @param game la partie avec IA en cours
      */
     public void add_pion_naive(Partie_IA game){
         //On choisit aléatoirement une colonne où l'IA va jouer
         int col = new Random().nextInt(game.partie.getColonnes());
         int [][]grille = game.partie.getTab_de_jeu();
 
+        //On vérifie que la colonne n'est pas pleine/qu'elle ne dépasse pas le tableau
         while(!Deroulement_partie.colonne_correcte(game.partie, col)){
             col = new Random().nextInt(game.partie.getColonnes());
         }
         //On place le pion au fond de la colonne
         grille[Deroulement_partie.gravite(grille, col)][col] = 2;
+    }
+
+    /** Fonction qui détermine si c'est au joueur ou à l'IA, et permet au joueur ou à l'IA de placer un pion dans la grille de jeu.
+     * La manière dont l'IA joue dépendra du niveau de difficulté sélectionné.
+     * Elle prend en paramètre un objet de la classe Partie_IA et, dans son champ partie, altère le champ tab_de_jeu et
+     * incrémente champ nb_tours.
+     *
+     *
+     * @param game la partie avec IA en cours
+     * @return le String qui servira de sauvegarde de la partie
+     */
+    public String tour (Partie_IA game){
+        //Le joueur 1 commence tjr en 1er, d'où cette condition modulo 2
+        if(game.partie.getNb_coups() %2 == 0){
+            System.out.println("Au tour de " + game.partie.getJoueur_1() + " de jouer !");
+            Deroulement_partie.add_pion(game.partie, 1);
+        } else {
+            System.out.println("Au tour de l'IA de jouer !");
+            if(game.niveau_IA == 0) {
+                add_pion_naive(game);
+            }
+        }
+        game.partie.setNb_coups(game.partie.getNb_coups() + 1);
+        return Deroulement_partie.save(game.partie);
     }
 }
