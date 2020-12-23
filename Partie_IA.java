@@ -5,7 +5,7 @@ import java.util.Random;
  *
  *
  * @author AIT KHELIFA Tanina & BOUGHANMI Rami
- * @version 22/12/2020
+ * @version 23/12/2020
  */
 
 public class Partie_IA {
@@ -13,57 +13,15 @@ public class Partie_IA {
     private Niveau lvl;
 
 
-    /** Constructeur d'objet sans paramètres de la classe Partie_IA, permettant de créer un partie
-     * sur une grille 6x7, le nom du joueur est initialisé à "Joueur 1"
+    /** Constructeur d'objet de la classe Partie_IA, permettant de créer une partie contre une IA
+     * à partir d'une partie humain
      *
-     * @param niv Niveau le niveau de difficulté de l'IA
-     * @param num int, le numéro de sauvegarde de la partie
+     * @param p Partie_humain qui contiendra les paramèrtes de la partie
+     * @param niv Niveau, le numéro de sauvegarde de la partie
      * */
 
-    public Partie_IA(Niveau niv, int num){
-        partie = new Partie_humain("Joueur 1", "IA", num);
-        lvl = niv;
-    }
-
-    /** Constructeur d'objet de la classe Partie_IA permettant de créer un partie
-     * sur une grille 6x7, le joueur peut alors choisir son nom
-     *
-     * @param j1 String, correspond au nom du joueur
-     * @param niv Niveau, le niveau de difficulté de l'IA
-     * @param num int, le numéro de sauvegarde de la partie
-     */
-
-    public Partie_IA(String j1, Niveau niv, int num){
-        partie = new Partie_humain(j1, "IA", num);
-        lvl = niv;
-    }
-
-    /** Constructeur d'objet de la classe Partie_IA permettant de choisir la taille de la grille
-     * de jeu, le nom du joueur est initialisé à "Joueur 1"
-     *
-     * @param l int, correspond à la hauteur de la grille
-     * @param c int, correspond à la largeur de la grille
-     * @param niv le niveau de difficulté de l'IA
-     * @param num le numéro de sauvegarde de la partie
-     */
-
-    public Partie_IA(int l, int c, Niveau niv, int num){
-        partie = new Partie_humain(l, c,"Joueur 1", "IA", num);
-        lvl = niv;
-    }
-
-    /** Constructeur d'objet de la classe Partie_IA permettant de choisir la taille de la grille
-     * de jeu, le joueur peut alors choisir son nom
-     *
-     * @param l int, correspond à la hauteur de la grille
-     * @param c int, correspond à la largeur de la grille
-     * @param j1 String, correspond au nom du joueur
-     * @param niv Niveau, le niveau de difficulté de l'IA
-     * @param num int, le numéro de sauvegarde de la partie
-     */
-
-    public Partie_IA(int l, int c, String j1, Niveau niv, int num){
-        partie = new Partie_humain(l, c, j1, "IA", num);
+    public Partie_IA(Partie_humain p, Niveau niv){
+        partie = p;
         lvl = niv;
     }
 
@@ -108,7 +66,4 @@ public class Partie_IA {
         return Deroulement_partie.save(game.partie);
     }
 
-    public void genere_possi (Partie_IA game){
-
-    }
 }
