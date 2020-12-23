@@ -1,7 +1,6 @@
 /** Cette classe contient les constructeurs permettant de lancer une nouvelle partie de
  * Puissance 4 entre deux joueurs humains
  *
- *
  * @author  BOUGHANMI Rami
  * @version 11/11/2020
  */
@@ -90,9 +89,52 @@ public class New_partie {
         return prth;
     }
 
+    public static Partie_humain new_partie_bis(){
+        Partie_humain prth;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("voulez vous choisir un nom ou le laisser par defaut :");
+        if(sc.nextBoolean()){
+            System.out.println("Ecrivez le nom du joueur 1 :");
+            String nom_du_joueur_1 = sc.nextLine();
+            System.out.println("Voulez vous cree une parti custom (true or false) :");
+            if(sc.nextBoolean()){
+                System.out.println("Ecrivez un entier representant le nombre de colone :");
+                int c = sc.nextInt();
+                System.out.println("Ecrivez un entier representant le nombre de ligne ");
+                int l = sc.nextInt();
+                prth = partie_custom_humain_j(l,c,nom_du_joueur_1,"ia", Charger_partie.compteur_du_nombre_de_save());
+            }else{
+                prth = partie_entre_humain_j(nom_du_joueur_1,"ia", Charger_partie.compteur_du_nombre_de_save());
+            }
+        }else{
+            System.out.println("voulez vous choisir de customiser la taille de la grille ? (true or false) :");
+            if(sc.nextBoolean()){
+                System.out.println("Ecrivez un entier representant le nombre de colone :");
+                int c = sc.nextInt();
+                System.out.println("Ecrivez un entier representant le nombre de ligne ");
+                int l = sc.nextInt();
+                prth = partie_custom_humain(l,c, Charger_partie.compteur_du_nombre_de_save());
+            }else{
+                prth = partie_humain(Charger_partie.compteur_du_nombre_de_save());
+            }
+        }
+        return prth;
+    }
+    public static Partie_IA new_partie_ia(int lvl){
+        Partie_IA p;
+        if(lvl == 0){
+            p = new Partie_IA(new_partie_bis(), Niveau.FACILE);
+
+        }else if(lvl == 1){
+            p = new Partie_IA(new_partie_bis(), Niveau.MOYEN);
+        }else{
+            p = new Partie_IA(new_partie_bis(), Niveau.DIFFICILE);
+        }
+
+        return p;
+    }
+
 }
-
-
 
 
 /*
