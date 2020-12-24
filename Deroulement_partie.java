@@ -6,10 +6,11 @@ import java.util.Scanner;
 public class Deroulement_partie {
 
 
-    /** Méthode qui détermine si c'est au joueur 1 ou 2 de jouer, et permet à ce joueur de placer un pion dans la grille de jeu.
-     * Elle prend en paramètre un objet de la classe Partie_humain et modifie son champ tab_de_jeu et incrémente son champ nb_tours.
+    /** Fonction qui détermine si c'est au joueur 1 ou 2 de jouer, et permet à ce joueur de placer un pion dans la grille de jeu.
+     * Elle prend en paramètre un objet de la classe Partie_humain, altère son champ tab_de_jeu et incrémente son champ nb_tours.
      *
      * @param game représente une partie de Puissance 4 en cours
+     * @return  le String qui servira de sauvegarde de la partie
      */
     public static String tour(Partie_humain game){
             if(game.getNb_coups() %2 == 0){
@@ -211,7 +212,7 @@ public class Deroulement_partie {
         return false;
     }
 
-    /** Fonction qui retourne le String qui servira de sauvegarde pour la partie
+    /** Fonction qui retourne le String qui servira de sauvegarde pour une partie entre joueurs humains
      *
      * @param p la partie de jeu en cours
      * @return la String de sauvegarde de la partie
@@ -219,8 +220,7 @@ public class Deroulement_partie {
     public static String save(Partie_humain p){
         int[][] temp = p.getTab_de_jeu();
         //Préparation des premiers caractères (@ lignes colonnes )
-        String sauvegarde = String.valueOf(Charger_partie.compteur_du_nombre_de_save());
-        sauvegarde = sauvegarde + "@" + p.getLignes() + " " + p.getColonnes() + " ";
+        String sauvegarde = String.valueOf(p.getNumPartie()) + "@" + p.getLignes() + " " + p.getColonnes() + " ";
         for(int i=p.getLignes()-1; i>=0; i--){
             for(int j=0; j<p.getColonnes(); j++){
                 if(temp[i][j] == 1){
@@ -232,7 +232,68 @@ public class Deroulement_partie {
                 }
             }
         }
+        sauvegarde = sauvegarde + "@h";
+        return sauvegarde;
+    }
+
+    /** Fonction qui détermine si c'est au joueur ou à l'IA, et permet au joueur ou à l'IA de placer un pion dans la grille de jeu.
+     * La manière dont l'IA joue dépendra du niveau de difficulté sélectionné.
+     * Elle prend en paramètre un objet de la classe Partie_IA et, dans son champ partie, altère le champ tab_de_jeu et
+     * incrémente champ nb_tours.
+     *
+     *
+     * @param game la partie avec IA en cours
+     * @return le String qui servira de sauvegarde de la partie
+     */
+    public String tour (Partie_IA game){
+        //Le joueur 1 commence tjr en 1er, d'où cette condition modulo 2
+        if(game.getPartie().getNb_coups() %2 == 0){
+            System.out.println("Au tour de " + game.getPartie().getJoueur_1() + " de jouer !");
+            Deroulement_partie.add_pion(game.getPartie(), 1);
+        } else {
+            System.out.println("Au tour de l'IA de jouer !");
+            if(game.getLvl() == Niveau.FACILE) {
+                Partie_IA.add_pion_naive(game);
+            }
+        }
+        game.getPartie().setNb_coups(game.getPartie().getNb_coups() + 1);
+        return Deroulement_partie.save(game.getPartie());
+    }
+
+
+    /** Fonction qui retourne le String qui servira de sauvegarde pour une partie contre une IA
+     *
+     * @param p la partie de jeu en cours
+     * @return la String de sauvegarde de la partie
+     */
+    public static String save(Partie_IA p){
+        int[][] temp = p.getPartie().getTab_de_jeu();
+        //On ajoute le numéro de partie, ainsi que le nombre de lignes et de colonnes de la grille
+        String sauvegarde = String.valueOf(p.getPartie().getNumPartie()) + "@" + p.getPartie().getLignes() + " "
+                + p.getPartie().getColonnes() + " ";
+
+        //Conversion du tableau en String et ajout à la sauvegarde de celui-ci
+        for(int i=p.getPartie().getLignes()-1; i>=0; i--){
+            for(int j=0; j<p.getPartie().getColonnes(); j++){
+                if(temp[i][j] == 1){
+                    sauvegarde = sauvegarde + "x";
+                } else if (temp[i][j] == 2){
+                    sauvegarde = sauvegarde + "o";
+                } else {
+                    sauvegarde = sauvegarde + " ";
+                }
+            }
+        }
         sauvegarde = sauvegarde + "@";
+
+        //Pas de switch sinon erreur car sauvegarde aurait pu ne pas etre initialisée
+        if(p.getLvl() == Niveau.FACILE){
+            sauvegarde = "f";
+        } else if (p.getLvl() == Niveau.MOYEN){
+            sauvegarde = "m";
+        } else {
+            sauvegarde = "d";
+        }
         return sauvegarde;
     }
 }
