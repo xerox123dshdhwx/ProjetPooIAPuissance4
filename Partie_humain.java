@@ -14,8 +14,26 @@ public class Partie_humain {
     private int colonnes;
     private String joueur_1 = "Joueur 1";
     private String joueur_2 = "Joueur 2";
-    private int num_partie;
+    private final int num_partie;
 
+
+    /** Constructeur de copie d'objet de la classe Partie_humain
+     *
+     * @param p Parie_humain, la partie à copier
+     */
+
+    public Partie_humain(Partie_humain p){
+        lignes = p.lignes;
+        colonnes = p.colonnes;
+        tab_de_jeu = new int[p.lignes][p.colonnes];
+        for(int i=0; i<p.lignes; i++){
+            for(int j=0; j<p.colonnes; j++){
+                tab_de_jeu[i][j] = p.tab_de_jeu[i][j];
+            }
+        }
+        nb_coups = p.nb_coups;
+        num_partie = p.num_partie;
+    }
 
     /** Constructeur d'objet sans paramètres de la classe Partie_humain, permettant de créer un partie
      * sur une grille 6x7, les noms des joueurs sont initialisés à "Joueur 1" et "Joueur 2"
@@ -146,6 +164,12 @@ public class Partie_humain {
     public int getLignes() {
         return lignes;
     }
+
+    /** Fonction qui retourne le numéro de la partie (qui est aussi le numéro de sauvegarde de la partie) de l'objet courant
+     *
+     * @return int : le numéro de la partie
+     */
+    public int getNumPartie(){ return this.num_partie;}
 
     /** Fonction initialisant le nombre de lignes de la grille d'une partie entre deux humains
      *
