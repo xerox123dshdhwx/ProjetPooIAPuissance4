@@ -1,4 +1,12 @@
+import java.awt.dnd.DragGestureEvent;
 import java.util.ArrayList;
+
+/** Cette classe permettra de modéliser les noeuds des arbres de possibilité de coups des IA en cours de partie
+ *
+ *
+ * @author AIT KHELIFA Tanina & BOUGHANMI Rami
+ * @version 24/12/2020
+ */
 
 public class Node
 {
@@ -45,19 +53,23 @@ public class Node
      */
     public Partie_humain getInfo() { return info; }
 
-    /** Méthode qui retourne le champ
+    /** Méthode qui retourne le champ fils d'une instance de la classe Node
      *
-     * @param i
+     * @return ArrayList<Node> le champ fils de l'objet courant
      */
-    public void  setInfo(Partie_humain i) {info = i; }
+    public ArrayList<Node> getFils() {return this.fils;}
 
-      
+
+    /** Fonction qui permet de représenter un Noeud sous forme de String
+     *
+     * @return String, correspondant au Noeud et ses fils
+     */
     @Override
     public String toString()
     {
-        String retour = Deroulement_partie.save(this.info) + " -> (";
+        String retour = Deroulement_partie.save(this.info).substring(0, Deroulement_partie.save(this.info).length()-1) + "->(";
         for(Node valeur : this.fils){
-            retour = retour + Deroulement_partie.save(valeur.info) + " -> ";
+            retour = retour + Deroulement_partie.save(valeur.info).substring(0, (Deroulement_partie.save(valeur.info).length()-1)) + "->";
         }
         return (retour + "x)");
     }
