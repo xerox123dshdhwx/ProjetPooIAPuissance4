@@ -15,7 +15,7 @@ public class Charger_partie {
      *
      * @return revoie la save de la partie N
      */
-    public static String get_fichier_texte(int n){
+    public static String get_fichier_texte(int n) throws NullPointerException {
         int radix = 10;
         char n_char = Character.forDigit(n , radix);
         String save = null;
@@ -33,7 +33,7 @@ public class Charger_partie {
             ligne = fluxEntree.nextLine( );
             no++;
             save = ligne;
-            if(save.charAt(0) == n_char){
+            if(save.charAt(0)/*was 0*/ == n_char){
                 System.out.println("La save a été trouver, a la ligne : " + no);
                 fluxEntree.close();
                 return save;
@@ -43,33 +43,82 @@ public class Charger_partie {
             //System.out.println("ligne Numero :" +no + " " + ligne);
         }
         fluxEntree.close( );
-        return save;
+        throw new NullPointerException("Cette sauvgarde nexiste pas !") ;
     }
 
+
+    public static Partie_IA relance_save_ia(String save, int lvl){
+        save = save.substring(0, save.length()-1);
+        Partie_humain prth = relancer_save(save);
+        Partie_IA prt_ia;
+        if(lvl == 0) {
+             prt_ia = new Partie_IA(prth,Niveau.FACILE);
+        }else if(lvl == 1){
+            prt_ia = new Partie_IA(prth, Niveau.MOYEN);
+        }else{
+             prt_ia = new Partie_IA(prth, Niveau.DIFFICILE);
+        }
+
+        boolean interputeur = true;
+
+        char c_num = save.charAt(0);//0 was
+        int num_save = Integer.parseInt(String.valueOf(c_num));
+
+        char l_c = save.charAt(2);//2 was
+        int l = Integer.parseInt(String.valueOf(l_c));
+
+        char c_c = save.charAt(4);//4 was
+        int c = Integer.parseInt(String.valueOf(c_c));
+        //prth.setColonnes(l);
+        //prth.setLignes(c);
+        int x = 6;// was 6
+        save = save.substring(6);//was 6
+        for (int i = 0 ; (i < prt_ia.getPartie().getTab_de_jeu().length )&& (interputeur);i++){
+
+            for(int k = 0; k<= c+k;k++){
+                if(k!=0 && (k)%l == 0){
+                    break;
+                }else if(save.charAt(k) == '@'){
+                    interputeur = false;
+                    break;
+                }
+                if(save.charAt(k) == 'x'){
+                    prt_ia.getPartie().getTab_de_jeu()[c-i-1][k] = 1;
+                }else if(save.charAt(k) == 'o'){
+                    prt_ia.getPartie().getTab_de_jeu()[c-i-1][k] = 2;
+                }else if(save.charAt(k) == ' '){
+                    prt_ia.getPartie().getTab_de_jeu()[c-i-1][k] = 0;
+                }
+            }
+            int temp = save.length()-1;// was without -1
+            save = save.substring(l%temp);
+        }
+
+        return prt_ia;
+    }
     /**
      *fonction qui prend une save et la relance sous forme de tableau
      *
      * @param save prend une save
-     * @return un tableau
+     * @return une partie entre humain
      */
     public static Partie_humain relancer_save(String save){
-
         boolean interputeur = true;
 
-        char c_num = save.charAt(0);
+        char c_num = save.charAt(0);//0 was
         int num_save = Integer.parseInt(String.valueOf(c_num));
 
-        char l_c = save.charAt(2);
+        char l_c = save.charAt(2);//2 was
         int l = Integer.parseInt(String.valueOf(l_c));
 
-        char c_c = save.charAt(4);
+        char c_c = save.charAt(4);//4 was
         int c = Integer.parseInt(String.valueOf(c_c));
 
         Partie_humain prth = New_partie.partie_custom_humain(c,l, num_save);
-        prth.setColonnes(l);
-        prth.setLignes(c);
-        int x = 6;
-        save = save.substring(6);
+        //prth.setColonnes(l);
+        //prth.setLignes(c);
+        int x = 6;// was 6
+        save = save.substring(6);//was 6
         for (int i = 0 ; (i < prth.getTab_de_jeu().length )&& (interputeur);i++){
 
             for(int k = 0; k<= c+k;k++){
@@ -87,7 +136,7 @@ public class Charger_partie {
                     prth.getTab_de_jeu()[c-i-1][k] = 0;
                 }
             }
-            int temp = save.length();
+            int temp = save.length();// was without -1
             save = save.substring(l%temp);
         }
         return prth;
