@@ -5,12 +5,15 @@ import java.util.Random;
  *
  *
  * @author AIT KHELIFA Tanina & BOUGHANMI Rami
- * @version 23/12/2020
+ * @version 22/12/2020
  */
+
+//Pour évaluation : on compte le nombre de d'alignement et pions alignés + on soustrait l'évaluation ennemie = delta bg
+//Pour la save : h = humains, f = facile
 
 public class Partie_IA {
     private Partie_humain partie;
-    private Niveau lvl;
+    private final Niveau lvl;
 
 
     /** Constructeur d'objet de la classe Partie_IA, permettant de créer une partie contre une IA
@@ -29,10 +32,13 @@ public class Partie_IA {
      *
      * @param game la partie avec IA en cours
      */
-    public void add_pion_naive(Partie_IA game){
+    public static void add_pion_naive(Partie_IA game){
         //On choisit aléatoirement une colonne où l'IA va jouer
         int col = new Random().nextInt(game.partie.getColonnes());
         int [][]grille = game.partie.getTab_de_jeu();
+
+        //On affiche les coups possibles dans l'arbre
+        System.out.println((Tree.generation_naive(game.partie).getRoot().toString()));
 
         //On vérifie que la colonne n'est pas pleine/qu'elle ne dépasse pas le tableau
         while(!Deroulement_partie.colonne_correcte(game.partie, col)){
@@ -42,28 +48,15 @@ public class Partie_IA {
         grille[Deroulement_partie.gravite(grille, col)][col] = 2;
     }
 
-    /** Fonction qui détermine si c'est au joueur ou à l'IA, et permet au joueur ou à l'IA de placer un pion dans la grille de jeu.
-     * La manière dont l'IA joue dépendra du niveau de difficulté sélectionné.
-     * Elle prend en paramètre un objet de la classe Partie_IA et, dans son champ partie, altère le champ tab_de_jeu et
-     * incrémente champ nb_tours.
+    /** Méthode qui retourne le champ partie d'une instance de la classe Partie_IA
      *
-     *
-     * @param game la partie avec IA en cours
-     * @return le String qui servira de sauvegarde de la partie
+     * @return Partie_humain le champ partie de l'objet courant
      */
-    public String tour (Partie_IA game){
-        //Le joueur 1 commence tjr en 1er, d'où cette condition modulo 2
-        if(game.partie.getNb_coups() %2 == 0){
-            System.out.println("Au tour de " + game.partie.getJoueur_1() + " de jouer !");
-            Deroulement_partie.add_pion(game.partie, 1);
-        } else {
-            System.out.println("Au tour de l'IA de jouer !");
-            if(game.lvl == Niveau.FACILE) {
-                add_pion_naive(game);
-            }
-        }
-        game.partie.setNb_coups(game.partie.getNb_coups() + 1);
-        return Deroulement_partie.save(game.partie);
-    }
+    public Partie_humain getPartie(){return this.partie;}
 
+    /** Méthode qui retourne le champ lvl d'une instance de la classe Partie_IA
+     *
+     * @return Niveau, le champ lvl de l'objet courant
+     */
+    public Niveau getLvl(){return this.lvl;}
 }
