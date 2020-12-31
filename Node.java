@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  *
  * @author AIT KHELIFA Tanina & BOUGHANMI Rami
- * @version 24/12/2020
+ * @version 31/12/2020
  */
 
 public class Node
