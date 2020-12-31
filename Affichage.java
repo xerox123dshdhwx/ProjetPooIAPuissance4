@@ -13,7 +13,7 @@ public class Affichage {
             * @param tab un tableau de char
      */
     public static void affichage(int[][] tab){
-
+        //tab = new int [tab.length+1][tab[0].length+1];
         for(int i = 0 ; i < tab.length;i++) {
             for(int j = 0; j < tab[i].length;j++) {
                 if(tab[i][j] == 1) {
@@ -26,6 +26,12 @@ public class Affichage {
             }
             System.out.println("");
         }
+
+        for(int j = 0; j < tab[0].length;j++ ){
+            System.out.print(" "+String_color.ANSI_YELLOW + j + String_color.ANSI_RESET +" ");
+        }
+        System.out.println("");
+
     }
 
 }
