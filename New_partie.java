@@ -2,7 +2,7 @@
  * Puissance 4 entre deux joueurs humains
  *
  * @author  BOUGHANMI Rami
- * @version 11/11/2020
+ * @version 31/12/2020
  */
 
 
