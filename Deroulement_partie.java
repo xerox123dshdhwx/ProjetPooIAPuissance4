@@ -148,7 +148,6 @@ public class Deroulement_partie {
                     for (int i = p.getLignes() - 1; (i >= 3) && (tab[i][j] != 0); i--) {
                         if ((tab[i][j] == tab[i - 1][j]) && (tab[i][j] == tab[i - 2][j])
                                 && (tab[i][j] == tab[i - 3][j])) {
-                            System.out.println("Vertical");
                             return true;
                         } else {
                             if ((tab[i][j] == tab[i - 1][j]) && (tab[i][j] == tab[i - 2][j])
@@ -172,7 +171,6 @@ public class Deroulement_partie {
                         if (tab[k][j] != 0) {
                             if ((tab[k][j] == tab[k][j + 1]) && (tab[k][j] == tab[k][j + 2])
                                     && (tab[k][j] == tab[k][j + 3])) {
-                                System.out.println("Horizontal");
                                 return true;
                             } else if ((tab[k][j] == tab[k][j + 1]) && (tab[k][j] == tab[k][j + 2])
                                     && (tab[k][j] != tab[k][j + 3])) {
@@ -197,7 +195,6 @@ public class Deroulement_partie {
                 if (tab[i][j] != 0) {
                     if ((tab[i][j] == tab[i - 1][j - 1]) && (tab[i][j] == tab[i - 2][j - 2])
                             && (tab[i][j] == tab[i - 3][j - 3])) {
-                        System.out.println("Diagonale 1");
                         return true;
                     }
                 }
@@ -210,13 +207,21 @@ public class Deroulement_partie {
                 if(tab[i][j] != 0) {
                     if ((tab[i][j] == tab[i - 1][j + 1]) && (tab[i][j] == tab[i - 2][j + 2])
                             && (tab[i][j] == tab[i - 3][j + 3])) {
-                        System.out.println("Diagonale 2");
                         return true;
                     }
                 }
             }
         }
         return false;
+    }
+
+    /** Fonction qui permet de déterminer si une partie s'est achevée sur une égalité (grille remplie ET aucun alignement)
+     *
+     * @param p Partie_humain, la partie en cours
+     * @return boolean, true si il y a bien égalité
+     */
+    public static boolean egalite(Partie_humain p){
+        return ((p.getNb_coups() == p.getColonnes()*p.getLignes()) && (!check_win(p)));
     }
 
 
