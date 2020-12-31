@@ -278,6 +278,7 @@ public class Deroulement_partie {
                 coups.elagage();
                 game.setPartie(coups.getRoot().meilleurCoup());
                 }
+            Affichage.affichage(game.getPartie().getTab_de_jeu());
             }
         return Deroulement_partie.save(game);
     }
