@@ -42,7 +42,26 @@ public class Tree
      */
     public static Tree generation_naive(Partie_humain p){
         return (new Tree(Node.naive(p)));
+    }
 
+    /** Méthde qui permet de réaliser l'élagage d'un Tree*/
+    public void elagage(){
+        if(this.root != null){
+            this.root.elagage(Integer.MIN_VALUE, Integer.MAX_VALUE);
+        }
+    }
+
+    /** Méthode qui permet de créer un Tree de profondeur souhaitée, représentant les coups
+     * possible d'une IA sur une partie
+     *
+     * @param p instance de Partie_humain correspondant au champ partie d'une instance de Partie_IA
+     * @param profondeur int, la profondeur souhaitée
+     * @return
+     */
+    public static Tree minMaxProfondeur(Partie_humain p, int profondeur){
+        Tree retour = new Tree();
+        retour.root = Node.node_c_air(p, profondeur);
+        return retour;
     }
 
 }
