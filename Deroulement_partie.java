@@ -1,13 +1,5 @@
 import java.util.Scanner;
 
-/** Cette classe contien un ensemble de méthodes et fonctions utilisées avec des instances de classe Partie_IA et/ou
- * Partie_humain.
- *
- *
- * @author AIT KHELIFA Tanina & BOUGHANMI Rami
- * @version 31/12/2020
- */
-
 
 // Rappel pour moi : les lignes c'est sur l'axe vertical (i), les colonnes sur l'axe horizontal (j)
 
@@ -151,11 +143,12 @@ public class Deroulement_partie {
         int[][] tab = p.getTab_de_jeu();
         if(p.getNb_coups() >= 7) {
             //Recherche des alignements verticaux
-            for (int j = 0; (j < p.getColonnes()); j++) {
+            for (int j = 0; j < p.getColonnes(); j++) {
                 if (tab[p.getLignes() - 1][j] != 0) {
                     for (int i = p.getLignes() - 1; (i >= 3) && (tab[i][j] != 0); i--) {
                         if ((tab[i][j] == tab[i - 1][j]) && (tab[i][j] == tab[i - 2][j])
                                 && (tab[i][j] == tab[i - 3][j])) {
+                            System.out.println("Vertical");
                             return true;
                         } else {
                             if ((tab[i][j] == tab[i - 1][j]) && (tab[i][j] == tab[i - 2][j])
@@ -173,51 +166,56 @@ public class Deroulement_partie {
             }
             //Recherche des alignement horizontaux
             int k = p.getLignes() - 1;
-            for (int j = p.getColonnes() - 1; (k >= 0) && (j >= 3) && (!ligne_vide(tab[k])); j--) {
-                if (tab[k][j] != 0) {
-                    if ((tab[k][j] == tab[k][j - 1]) && (tab[k][j] == tab[k][j - 2])
-                            && (tab[k][j] == tab[k][j - 3])) {
-                        return true;
-                    } else if ((tab[k][j] == tab[k][j - 1]) && (tab[k][j] == tab[k][j - 2])
-                            && (tab[k][j] != tab[k][j - 3])) {
-                        j -= 2;
-                    } else if ((tab[k][j] == tab[k][j - 1]) && (tab[k][j] != tab[k][j - 2])
-                            && (tab[k][j] != tab[k][j - 3])) {
-                        j -= 1;
+            while((k>=0)){
+                if(!ligne_vide(p.getTab_de_jeu()[k])) {
+                    for (int j = 0; j < p.getColonnes() - 3; j++) {
+                        if (tab[k][j] != 0) {
+                            if ((tab[k][j] == tab[k][j + 1]) && (tab[k][j] == tab[k][j + 2])
+                                    && (tab[k][j] == tab[k][j + 3])) {
+                                System.out.println("Horizontal");
+                                return true;
+                            } else if ((tab[k][j] == tab[k][j + 1]) && (tab[k][j] == tab[k][j + 2])
+                                    && (tab[k][j] != tab[k][j + 3])) {
+                                j += 2;
+                            } else if ((tab[k][j] == tab[k][j + 1]) && (tab[k][j] != tab[k][j + 2])
+                                    && (tab[k][j] != tab[k][j + 3])) {
+                                j += 1;
+                            }
+                        }
                     }
                 }
-                if(j<3) {
-                    k--;
-                }
+                k--;
             }
 
         }
 
 
 
-            //Recherche des alignements diagonaux \
-            for (int i = p.getLignes()-1; i > 2; i--){
-                 for (int j = p.getColonnes() - 1; j > 2; j--){
-                    if (tab[i][j] != 0) {
-                        if ((tab[i][j] == tab[i - 1][j - 1]) && (tab[i][j] == tab[i - 2][j - 2])
-                                && (tab[i][j] == tab[i - 3][j - 3])) {
-                            return true;
-                        }
+        //Recherche des alignements diagonaux \
+        for (int i = p.getLignes()-1; i > 2; i--){
+            for (int j = p.getColonnes() - 1; j > 2; j--){
+                if (tab[i][j] != 0) {
+                    if ((tab[i][j] == tab[i - 1][j - 1]) && (tab[i][j] == tab[i - 2][j - 2])
+                            && (tab[i][j] == tab[i - 3][j - 3])) {
+                        System.out.println("Diagonale 1");
+                        return true;
                     }
                 }
             }
+        }
 
-            //Recherche des alignements diagonaux /
-            for (int i = p.getLignes()-1; i >= 3; i--){
-                  for (int j = 0; j < p.getColonnes() - 3; j++){
-                      if(tab[i][j] != 0) {
-                          if ((tab[i][j] == tab[i - 1][j + 1]) && (tab[i][j] == tab[i - 2][j + 2])
-                                  && (tab[i][j] == tab[i - 3][j + 3])) {
-                              return true;
-                          }
-                      }
-                  }
+        //Recherche des alignements diagonaux /
+        for (int i = p.getLignes()-1; i >= 3; i--){
+            for (int j = 0; j < p.getColonnes() - 3; j++){
+                if(tab[i][j] != 0) {
+                    if ((tab[i][j] == tab[i - 1][j + 1]) && (tab[i][j] == tab[i - 2][j + 2])
+                            && (tab[i][j] == tab[i - 3][j + 3])) {
+                        System.out.println("Diagonale 2");
+                        return true;
+                    }
                 }
+            }
+        }
         return false;
     }
 
