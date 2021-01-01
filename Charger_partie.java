@@ -15,14 +15,10 @@ public class Charger_partie {
      *
      * @return revoie la save de la partie N
      */
-    public static String get_fichier_texte() throws NullPointerException {
+    public static String get_fichier_texte(int n) throws NullPointerException {
         Scanner scanner = new Scanner(System.in);
         int decalage = 0;
-        int n = 0;
-        do{
-        System.out.println(String_color.ANSI_YELLOW +"Quelle est le numero de la sauvgarde que vous voulez lancer ! "+ String_color.ANSI_RESET);
-        n = scanner.nextInt();
-        }while(n < 1);
+
 
         String temp = Integer.toString(n);
         decalage = temp.length()-1;
@@ -152,7 +148,6 @@ public class Charger_partie {
                     cpt++;
                 }else if(save.charAt(k) == ' '){
                     prth.getTab_de_jeu()[c-i-1][k] = 0;
-                    cpt++;
                 }
             }
             int temp = save.length()-1;// was without -1
@@ -167,12 +162,11 @@ public class Charger_partie {
             System.out.println("Default username : "+prth.getJoueur_1());
 
             System.out.println("Default username : "+prth.getJoueur_2());
+            prth.setNb_coups(cpt);
             return prth;
         } else{
             prth.setNb_coups(cpt);
-           //System.out.println("save avec h : " + save_temp);
             save_temp = save_temp.substring(1);
-            //System.out.println("save sans h : " + save_temp);
 
             String temp1 = "";
             String temp2 = "";
@@ -188,17 +182,20 @@ public class Charger_partie {
                 }
             }
 
-            System.err.println("Username 1 :" + temp1);
-            System.err.println("Username 2 :" + temp2);
+            System.out.println("Username 1 :" + temp1);
+            System.out.println("Username 2 :" + temp2);
 
                 if(temp2.equals("")){
                     prth.setJoueur_1(temp1);
                     prth.setJoueur_2("ia");
                     System.out.println("Username 2 : ia");
+                    prth.setNb_coups(cpt);
                     return prth;
                 }else{
                     prth.setJoueur_1(temp1);
                     prth.setJoueur_2(temp2);
+                    prth.setNb_coups(cpt);
+
                     return prth;
                 }
         }
@@ -213,7 +210,7 @@ public class Charger_partie {
      * @throws FileNotFoundException le fichir charger n'est pas trouver
      */
     public static void replace_save_number_(String new_save,int numero_de_la_save,File fichier_originel) throws FileNotFoundException {
-        String save = get_fichier_texte();
+        String save = get_fichier_texte(numero_de_la_save);
 
         File fichier = new File("leFichier_copie.txt");
         PrintWriter writer = new PrintWriter("leFichier_copie.txt");
@@ -298,7 +295,7 @@ public class Charger_partie {
         }
         String ligne;
 
-        System.err.println(compteur_du_nombre_de_save() + "avant la boucle");
+        System.out.println(compteur_du_nombre_de_save() + "avant la boucle");
 
         for(int i  = 0 ; i < compteur_du_nombre_de_save();i++){
             ligne = fluxEntree.nextLine();
@@ -313,6 +310,42 @@ public class Charger_partie {
         fichier.renameTo(fichier_originel);
 
     }
+    public static void delete_save_number(int numero_de_la_save,File fichier_originel) throws FileNotFoundException {
+        String save = get_fichier_texte(numero_de_la_save);
+
+        File fichier = new File("leFichier_copie.txt");
+        PrintWriter writer = new PrintWriter("leFichier_copie.txt");
+        boolean interupteur = false;
+        Scanner fluxEntree = null;
+        try
+        {
+            fluxEntree = new Scanner(new FileInputStream("leFichier.txt"));
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Error ouverture fichier. dans Replace save number");
+            System.exit(0);
+        }
+        String ligne;
+
+        while(fluxEntree.hasNextLine()) {
+            ligne = fluxEntree.nextLine();
+            interupteur = false;
+            if(ligne.equals(save)){
+                interupteur = true;
+            }else if(!interupteur) {
+                writer.println(ligne);
+            }
+        }
+        writer.close();
+
+        fluxEntree.close();
+        fichier_originel.delete();
+        fichier.renameTo(fichier_originel);
+
+    }
+
+
     /**
      * cette fonction permet de s'avoir le nombre de charactere avant le type de la sauvgarde.
      * @param save prend une sauvgarde d'une partie
