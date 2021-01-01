@@ -9,6 +9,7 @@
 import java.util.InputMismatchException;
 import java.util.MissingFormatArgumentException;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class New_partie {
     /**
@@ -66,61 +67,65 @@ public class New_partie {
         Partie_humain prth;
         Scanner sc = new Scanner(System.in);
         System.out.println("voulez vous choisir un nom ou le laisser par defaut true or false:");
-
-        if (sc.nextBoolean()) {
+        boolean repi = isBoolean();
+        if (repi){
 
             String nom_du_joueur_1;
             do {
                 System.out.println("Ecrivez le nom du joueur 1 :");
-                sc.next();
                 nom_du_joueur_1 = sc.nextLine();
-            } while (!stringIsInt(nom_du_joueur_1));
+                System.out.println(nom_du_joueur_1);
+            }while(stringIsInt(nom_du_joueur_1));
 
             String nom_du_joueur_2;
             do {
                 System.out.println("Ecrivez le nom du joueur 2 :");
-                sc.next();
                 nom_du_joueur_2 = sc.nextLine();
-            } while (!stringIsInt(nom_du_joueur_1));
+                System.out.println(nom_du_joueur_2);
+            }while (stringIsInt(nom_du_joueur_2));
+
 
             boolean val = false;
             System.out.println("Voulez vous cree une parti custom (true or false) :");
-            val =isBoolean();
+            val = isBoolean();
 
             if (val) {
-                System.out.println("Ecrivez un entier representant le nombre de colone :");
+                System.out.println("Ecrivez un entier representant le nombre de colone (chiffre >= 4) :");
                 int c = -1;
                 do {
                     c = isint();
-                }while(c <= 4);
-                System.out.println("Ecrivez un entier representant le nombre de ligne ");
+                }while(c < 4);
+                System.out.println("Ecrivez un entier representant le nombre de ligne (chiffre >= 4) ");
                 int l = -1;
                 do{
                     l = isint();
-                }while(l <= 4);
-                prth = partie_custom_humain_j(l, c, nom_du_joueur_1, nom_du_joueur_2, Charger_partie.compteur_du_nombre_de_save());
+                }while(l < 4);
+                prth = partie_custom_humain_j(l, c, nom_du_joueur_1, nom_du_joueur_2, Charger_partie.compteur_du_nombre_de_save()+1);
+
             } else {
-                prth = partie_entre_humain_j(nom_du_joueur_1, nom_du_joueur_2, Charger_partie.compteur_du_nombre_de_save());
+                prth = partie_entre_humain_j(nom_du_joueur_1, nom_du_joueur_2, Charger_partie.compteur_du_nombre_de_save()+1);
+
             }
         } else {
             System.out.println("voulez vous choisir de customiser la taille de la grille ? (true or false) :");
             boolean val = isBoolean();
             if (val) {
-                System.out.println("Ecrivez un entier representant le nombre de colone :");
+                System.out.println("Ecrivez un entier representant le nombre de colone (chiffre >= 4) :");
                 int c = -1;
                 do {
                     c = isint();
-                }while(c <= 4);
-                System.out.println("Ecrivez un entier representant le nombre de ligne ");
+                }while(c < 4);
+                System.out.println("Ecrivez un entier representant le nombre de ligne (chiffre >= 4)");
                 int l = -1;
                 do{
                     l = isint();
-                }while(l <= 4);
-                prth = partie_custom_humain(l, c, Charger_partie.compteur_du_nombre_de_save());
+                }while(l < 4);
+                prth = partie_custom_humain(l, c, Charger_partie.compteur_du_nombre_de_save()+1);
             } else {
-                prth = partie_humain(Charger_partie.compteur_du_nombre_de_save());
+                prth = partie_humain(Charger_partie.compteur_du_nombre_de_save()+1);
             }
         }
+        System.out.println(String_color.ANSI_RED + prth.getJoueur_1()+ " -> " + prth.getJoueur_2() + String_color.ANSI_RESET);
         return prth;
     }
     /**
@@ -133,13 +138,11 @@ public class New_partie {
         Partie_humain prth;
         Scanner sc = new Scanner(System.in);
         System.out.println("voulez vous choisir un nom ou le laisser par defaut :");
-        if (sc.nextBoolean()) {
+        boolean temp = isBoolean();
+        if (temp) {
             String nom_du_joueur_1;
-            do {
-                System.out.println("Ecrivez le nom du joueur 1 :");
-                sc.next();
-                nom_du_joueur_1 = sc.nextLine();
-            } while (!stringIsInt(nom_du_joueur_1));
+            System.out.println("Ecrivez le nom du joueur 1 :");
+            nom_du_joueur_1 = sc.nextLine();
 
             boolean val = false;
             System.out.println("Voulez vous cree une parti custom (true or false) :");
@@ -155,9 +158,11 @@ public class New_partie {
                 do{
                     l = isint();
                 }while(l <= 4);
-                prth = partie_custom_humain_j(l, c, nom_du_joueur_1, "ia", Charger_partie.compteur_du_nombre_de_save());
+                prth = partie_custom_humain_j(l, c, nom_du_joueur_1, "ia", Charger_partie.compteur_du_nombre_de_save()+1);
+                prth.setJoueur_1(nom_du_joueur_1);
+
             } else {
-                prth = partie_entre_humain_j(nom_du_joueur_1, "ia", Charger_partie.compteur_du_nombre_de_save());
+                prth = partie_entre_humain_j(nom_du_joueur_1, "ia", Charger_partie.compteur_du_nombre_de_save()+1);
             }
         } else {
             System.out.println("voulez vous choisir de customiser la taille de la grille ? (true or false) :");
@@ -172,9 +177,9 @@ public class New_partie {
                 do{
                     l = isint();
                 }while(l <= 4);
-                prth = partie_custom_humain(l, c, Charger_partie.compteur_du_nombre_de_save());
+                prth = partie_custom_humain(l, c, Charger_partie.compteur_du_nombre_de_save()+1);
             } else {
-                prth = partie_humain(Charger_partie.compteur_du_nombre_de_save());
+                prth = partie_humain(Charger_partie.compteur_du_nombre_de_save()+1);
             }
         }
         return prth;
@@ -206,6 +211,7 @@ public class New_partie {
     public static boolean stringIsInt(String entree) {
         try {
             Integer.parseInt(entree);
+            System.out.println("Erreur int rentrer");
             return true;
         } catch (NumberFormatException ex) {
             return false;
@@ -225,7 +231,7 @@ public class New_partie {
                 x = scanner.nextBoolean();
                 y = false;
             } catch (InputMismatchException e) {
-                System.out.println("True");
+                System.out.println(String_color.ANSI_RED + "Erreur recommencer !!!! C'EST INACCEPTABLE"+ String_color.ANSI_PURPLE + " (ノಠ益ಠ)ノ彡┻━┻" + String_color.ANSI_RESET);
                 y = true;
                 scanner.nextLine();
             }
