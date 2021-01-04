@@ -9,74 +9,80 @@ public class Main {
         boolean val_b = true;
         Date_base dta = new Date_base();
         boolean interupteur_partie = true;
+
         while(interupteur_partie){
-        System.out.println(String_color.ANSI_GREEN +"Bienvenue  Dans le⁴ !!" + String_color.ANSI_RESET);
+            System.out.println(String_color.ANSI_GREEN +"Bienvenue  Dans le⁴ !!" + String_color.ANSI_RESET);
+            System.out.println(String_color.ANSI_YELLOW + "Voulez vous jouez a notre jeux ??? (true or false) : " + String_color.ANSI_RESET);
+            val_b = New_partie.isBoolean();
 
-        System.out.println(String_color.ANSI_YELLOW + "Voulez vous jouez a notre jeux ??? (true or false) : " + String_color.ANSI_RESET);
-        val_b = New_partie.isBoolean();
-        if(!val_b){
-            System.out.println(String_color.ANSI_BLUE + "Merci de votre visite revenez nous vite !" +"ლ(｡-﹏-｡ ლ)"
-                    + String_color.ANSI_RESET);
-            interupteur_partie = val_b;
-        }else{
-            System.out.println(String_color.ANSI_CYAN + "SUPER JE SUIS TROP HEUREUX JOUEUR-SAMA !! " + String_color.ANSI_RED+" (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ " + String_color.ANSI_RESET);
-            System.out.println(String_color.ANSI_YELLOW + "Voulez vous charger une ancienne partie (true or false) : " + String_color.ANSI_RESET);
-            boolean rep1 = New_partie.isBoolean();
+            if(!val_b){
+                //Si le mec veut pas jouer
+                System.out.println(String_color.ANSI_BLUE + "Merci de votre visite revenez nous vite !" +"ლ(｡-﹏-｡ ლ)"
+                        + String_color.ANSI_RESET);
+                interupteur_partie = val_b;
+            } else {
+                System.out.println(String_color.ANSI_CYAN + "SUPER JE SUIS TROP HEUREUX JOUEUR-SAMA !! " + String_color.ANSI_RED+" (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ " + String_color.ANSI_RESET);
+                System.out.println(String_color.ANSI_YELLOW + "Voulez vous charger une ancienne partie (true or false) : " + String_color.ANSI_RESET);
+                boolean rep1 = New_partie.isBoolean();
 
-            if(rep1){
-                clearConsole();
-                System.out.println(String_color.ANSI_YELLOW + "Entre le numero de la sauvgarde de lancienne partie a charger !: " + String_color.ANSI_RESET);
-                int n = 0;
-                do{
-                    System.out.println(String_color.ANSI_YELLOW +"Quelle est le numero de la sauvgarde que vous voulez lancer ! "+ String_color.ANSI_RESET);
-                    n = New_partie.isint();
-                }while(n < 1);
-                String save = Charger_partie.get_fichier_texte(n);
-                int val = Charger_partie.nombre_char_avant_le_type_de_partie(save);
-                String save_temp = save.substring(0,val);
-                clearConsole();
+                //Le mec veut charger une ancienne partie
+                if(rep1) {
+                    clearConsole();
+                    System.out.println(String_color.ANSI_YELLOW + "Entre le numero de la sauvgarde de lancienne partie a charger !: " + String_color.ANSI_RESET);
+                    int n = 0;
 
-                if((save_temp.charAt(save_temp.length()-1) != 'h')){
-                    Partie_IA prt_ia;
-                    if(save_temp.charAt(save_temp.length()-1) == 'f'){
-                        prt_ia = Charger_partie.relance_save_ia(save,0);
-                        System.out.println("difficulté : facile");
+                    do {
+                        System.out.println(String_color.ANSI_YELLOW +"Quelle est le numero de la sauvgarde que vous voulez lancer ! "+ String_color.ANSI_RESET);
+                        n = New_partie.isint();
+                    } while(n < 1);
 
-                    }else if(save_temp.charAt(save_temp.length()-1) == 'm') {
-                        prt_ia = Charger_partie.relance_save_ia(save,1);
-                        System.out.println("difficulté : moyen");
-                    }else{
-                        prt_ia = Charger_partie.relance_save_ia(save,2);
-                        System.out.println("difficulté : dificle");
-                    }
-                    Affichage.affichage(prt_ia.getPartie().getTab_de_jeu());
-                    if(jouer_ancienne_partie(prt_ia.getPartie())){
-                        System.out.println("ok continue >< la partie ia !");
-                    }else{
-                        break;
-                    }
+                    String save = Charger_partie.get_fichier_texte(n);
+                    int val = Charger_partie.nombre_char_avant_le_type_de_partie(save);
+                    String save_temp = save.substring(0,val);
+                    clearConsole();
 
-                }else {
-                    System.out.println("Save entre humain relancer !");
-                    Partie_humain prth = Charger_partie.relancer_save(save);
-                    Affichage.affichage(prth.getTab_de_jeu());
-                    if(jouer_ancienne_partie(prth)){
-                        System.out.println("ok continue ><");
-                    }else{
-                        break;
-                    }
-                }
-            }else{
-                System.out.println(String_color.ANSI_YELLOW + "Voulez vous cree une partie contre une ia ?(true or false)  " +
-                            "si false cela crera une partie contre humain" + String_color.ANSI_RESET);
-                    boolean rep2 = New_partie.isBoolean();
-                    if(rep2){
+                    if((save_temp.charAt(save_temp.length()-1) != 'h')){
+                        Partie_IA prt_ia;
+                        if(save_temp.charAt(save_temp.length()-1) == 'f'){
+                            prt_ia = Charger_partie.relance_save_ia(save,0);
+                            System.out.println("difficulté : facile");
 
-                        if(jouer_partie(New_partie.new_partie_bis())){
-                            System.out.println("ok continue la");
+                        } else if (save_temp.charAt(save_temp.length()-1) == 'm') {
+                            prt_ia = Charger_partie.relance_save_ia(save,1);
+                            System.out.println("difficulté : moyen");
+
+                        } else {
+                            prt_ia = Charger_partie.relance_save_ia(save,2);
+                            System.out.println("difficulté : dificle");
+                        }
+                        Affichage.affichage(prt_ia.getPartie().getTab_de_jeu());
+                        jouer_ancienne_partie(prt_ia);
+
+                    } else {
+                        System.out.println("Save entre humain relancée !");
+                        Partie_humain prth = Charger_partie.relancer_save(save);
+                        Affichage.affichage(prth.getTab_de_jeu());
+                        if(jouer_ancienne_partie(prth)){
+                            System.out.println("ok continue ><");
                         }else{
                             break;
                         }
+                    }
+
+
+                    //On lance une nouvelle partie
+                }else{
+                    System.out.println(String_color.ANSI_YELLOW + "Voulez vous cree une partie contre une ia ?(true or false)  " +
+                            "si false cela crera une partie contre humain" + String_color.ANSI_RESET);
+                    boolean rep2 = New_partie.isBoolean();
+
+                    //Partie avec IA
+                    if(rep2){
+                        System.out.println("Choisissez la difficulté de l'IA (entrez l'entier correspondant au niveau que vous souhaitez) :");
+                        System.out.println("(0) Facile");
+                        System.out.println("(1) Moyen");
+                        System.out.println("(3) Difficile");
+                        jouer_partieIA(New_partie.new_partie_ia(New_partie.isint()));
 
                     }else{
                         if(jouer_partie(New_partie.new_partie())){
@@ -148,7 +154,7 @@ public class Main {
     }
     public  static void clearConsole()
     {
-       for(int k = 0 ; k <50 ;k++){System.out.println();}
+        for(int k = 0 ; k <50 ;k++){System.out.println();}
     }
 
     public static boolean jouer_partie(Partie_humain prth) throws FileNotFoundException {
@@ -191,6 +197,47 @@ public class Main {
         }else{
             Charger_partie.injecter_save(save,date_base.getFichier());
             System.out.println(String_color.ANSI_BLUE + "JEUX MIS EN PAUSE ! -> SAVE AJOUTER" + String_color.ANSI_RESET);
+        }
+        return false;
+    }
+
+    public static boolean jouer_partieIA(Partie_IA p) throws FileNotFoundException {
+        Date_base date_base = new Date_base();
+        String save = "";
+        boolean rep = false;
+        boolean interupteur = true;
+        while ((!Deroulement_partie.check_win(p.getPartie())) && (!Deroulement_partie.egalite(p.getPartie()))) {
+            Affichage.affichage(p.getPartie().getTab_de_jeu());
+            save = Deroulement_partie.tour(p);
+            System.out.println();
+            System.out.println(String_color.ANSI_RED + "VOULEZ VOUS CONTINUER LA PARTIE ?" + String_color.ANSI_RESET);
+            rep = New_partie.isBoolean();
+            if (!rep) {
+                interupteur = false;
+                break;
+            } else {
+                rep = true;
+                interupteur = true;
+            }
+        }
+
+        if (Deroulement_partie.egalite(p.getPartie())) {
+            System.out.println("Egalité");
+            System.out.println();
+        } else {
+            if (p.getPartie().getNb_coups() % 2 == 0) {
+                System.out.println(p.getPartie().getJoueur_2() + " a gagné!");
+            } else {
+                System.out.println(p.getPartie().getJoueur_1() + " a gagné!");
+            }
+            System.out.println();
+        }
+
+        if(interupteur) {
+            System.out.println(String_color.ANSI_BLUE + "Partie mise en pause. Sauvegarde effectuée" + String_color.ANSI_RESET);
+        }else{
+            Charger_partie.injecter_save(save,date_base.getFichier());
+            System.out.println(String_color.ANSI_BLUE + "Partie mise en pause. Sauvegarde effectuée" + String_color.ANSI_RESET);
         }
         return false;
     }
@@ -240,6 +287,47 @@ public class Main {
             int save_num2 = save_num_of(save);
             Charger_partie.replace_save_number_(save,save_num2, date_base.getFichier());
             System.out.println(String_color.ANSI_BLUE + "JEUX MIS EN PAUSE ! -> SAVE REMPLACER" + String_color.ANSI_RESET);
+        }
+        return false;
+    }
+
+
+    public static Boolean jouer_ancienne_partie(Partie_IA p) throws FileNotFoundException {
+        Date_base date_base = new Date_base();
+        String save = "";
+        boolean rep = false;
+        boolean interupteur = true;
+        while ((!Deroulement_partie.check_win(p.getPartie())) && (!Deroulement_partie.egalite(p.getPartie())) && interupteur) {
+            save = Deroulement_partie.tour(p);
+            Affichage.affichage(p.getPartie().getTab_de_jeu());
+
+            System.out.println();
+            System.out.println("Etat de la sauvegarde :" + Deroulement_partie.save(p));
+            System.out.println();
+            System.out.println(String_color.ANSI_RED + "VOULEZ VOUS CONTINUER LA PARTIE ?" + String_color.ANSI_RESET);
+            rep = New_partie.isBoolean();
+            if (Deroulement_partie.egalite(p.getPartie())) {
+                System.out.println("Egalité");
+                int save_num2 = save_num_of(save);
+                Charger_partie.delete_save_number(save_num2, date_base.getFichier());
+                System.out.println(String_color.ANSI_BLUE + "Partie terminée ! Sauvegarde supprimée." + String_color.ANSI_RESET);
+            } else if (Deroulement_partie.check_win(p.getPartie())){
+                if (p.getPartie().getNb_coups() % 2 == 0) {
+                    System.out.println(p.getPartie().getJoueur_2() + " a gagné!");
+                } else {
+                    System.out.println(p.getPartie().getJoueur_1() + " a gagné!");
+                }
+                int save_num2 = save_num_of(save);
+                Charger_partie.delete_save_number(save_num2, date_base.getFichier());
+                System.out.println(String_color.ANSI_BLUE + "Partie terminée ! Sauvegarde supprimée." + String_color.ANSI_RESET);
+            }
+
+            if (!rep) {
+                interupteur = false;
+                int save_num2 = save_num_of(save);
+                Charger_partie.replace_save_number_(save, save_num2, date_base.getFichier());
+                System.out.println(String_color.ANSI_BLUE + "Partie mise en pause ! Sauvegarde remplacée" + String_color.ANSI_RESET);
+            }
         }
         return false;
     }
