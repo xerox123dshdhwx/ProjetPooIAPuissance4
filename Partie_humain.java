@@ -2,8 +2,8 @@
  * Puissance 4 entre deux joueurs humains
  *
  *
- * @author AIT KHELIFA Tanina & BOUGHANMI Rami
- * @version 31/12/2020
+ * @author AIT KHELIFA Tanina
+ * @version 24/12/2020
  */
 
 public class Partie_humain {
@@ -24,6 +24,8 @@ public class Partie_humain {
     public Partie_humain(Partie_humain p){
         lignes = p.lignes;
         colonnes = p.colonnes;
+        joueur_1 = p.joueur_1;
+        joueur_2 = p.joueur_2;
         tab_de_jeu = new int[p.lignes][p.colonnes];
         for(int i=0; i<p.lignes; i++){
             for(int j=0; j<p.colonnes; j++){
@@ -37,6 +39,7 @@ public class Partie_humain {
 
     /** Constructeur d'objet sans paramètres de la classe Partie_humain, permettant de créer un partie
      * sur une grille 6x7, les noms des joueurs sont initialisés à "Joueur 1" et "Joueur 2"
+     * @param n int, numéro de sauvegarde
      */
     public Partie_humain(int n){
         lignes = 6;
@@ -52,6 +55,7 @@ public class Partie_humain {
      *
      * @param j1 String, correspond au nom du joueur 1
      * @param j2 String, correspond au nom du joueur 2
+     * @param n int, numéro de sauvegarde
      */
     public Partie_humain(String j1, String j2, int n){
         lignes = 6;
@@ -69,6 +73,7 @@ public class Partie_humain {
      *
      * @param l int, correspond à la hauteur de la grille
      * @param c int, correspond à la largeur de la grille
+     * @param n int, numéro de sauvegarde
      */
     public Partie_humain(int l, int c, int n){
         tab_de_jeu = new int[l][c];
@@ -86,6 +91,7 @@ public class Partie_humain {
      * @param c int, correspond à la largeur de la grille
      * @param j1 String, correspond au nom du joueur 1
      * @param j2 String, correspond au nom du joueur 2
+     * @param n int, numéro de sauvegarde
      */
     public Partie_humain(int l, int c, String j1, String j2, int n){
         tab_de_jeu = new int[l][c];
@@ -105,15 +111,6 @@ public class Partie_humain {
     public int[][] getTab_de_jeu() {
         return tab_de_jeu;
     }
-
-    /** Fonction initialisant la grille de jeu d'une partie entre deux humains
-     *
-     * @param tab int[][] correspondant au nouveau champ tab_de_jeu d'un objet de classe Partie_humain
-     */
-    public void setTab_de_jeu(int[][] tab) {
-        this.tab_de_jeu = tab;
-    }
-
 
     /** Fonction retournant le nom du premier joueur d'une partie entre deux humains
      *
@@ -176,25 +173,6 @@ public class Partie_humain {
      * @return int : le numéro de la partie
      */
     public int getNumPartie(){ return this.num_partie;}
-
-
-    /** Fonction initialisant le nombre de lignes de la grille d'une partie entre deux humains
-     *
-     * @param l int correspondant au nouveau champ lignes d'un objet de classe Partie_humain
-     */
-    public void setLignes(int l) {
-        this.lignes = l;
-    }
-
-
-    /** Fonction initialisant le nombre de colonnnes de la grille d'une partie entre deux humains
-     *
-     * @param c int correspondant au nouveau champ colonnes d'un objet de classe Partie_humain
-     */
-    public void setColonnes(int c) {
-        this.colonnes = c;
-    }
-
 
     /** Fonction retournant le nombre de coups qui ont été joués dans une partie entre deux humains
      *
@@ -334,21 +312,4 @@ public class Partie_humain {
         return score;
     }
 
-
-//Si besoin :
-    /*public boolean equals(Partie_humain p){
-        if((this.lignes == p.lignes) && (this.colonnes == p.colonnes) && (this.joueur_1.equals(p.joueur_1)) && (this.joueur_2.equals(p.joueur_2))
-        && (this.num_partie == p.num_partie) && (this.nb_coups == p.nb_coups)){
-            for (int i = 0; i<p.lignes; i++){
-                for(int j = 0; j<p.colonnes; j++){
-                    if(this.tab_de_jeu[i][j] != p.tab_de_jeu[i][j]){
-                        return false;
-                    }
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }*/
 }
