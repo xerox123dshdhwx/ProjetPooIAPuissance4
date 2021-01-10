@@ -1,6 +1,13 @@
 import java.util.Scanner;
 
 
+/** Cette classe contient des méthodes et fonctions utiles au déroulement de parties de puissances 4, qu'elles soient contre
+ * un humain, ou contre une IA.
+ *
+ * @author AIT KHELIFA Tanina
+ * @version 03/01/2021
+ */
+
 // Rappel pour moi : les lignes c'est sur l'axe vertical (i), les colonnes sur l'axe horizontal (j)
 
 public class Deroulement_partie {
@@ -62,6 +69,8 @@ public class Deroulement_partie {
         //On place le pion au fond de la colonne
         grille[gravite(grille, c)][c] = pion;
     }
+
+
     /** Fonction qui permet de déterminer si une colonne d'un tableau d'entiers à deux dimensions est remplie (tous ses éléments sont
      * différents de 0)
      *
@@ -137,9 +146,6 @@ public class Deroulement_partie {
      * @return boolean la présence on non d'un alignement gagnant
      */
     public static boolean check_win(Partie_humain p){
-        if(p.getNb_coups() == p.getColonnes()*p.getLignes()){
-            return true;
-        }
         int[][] tab = p.getTab_de_jeu();
         if(p.getNb_coups() >= 7) {
             //Recherche des alignements verticaux
@@ -275,6 +281,7 @@ public class Deroulement_partie {
             System.out.println("Au tour de l'IA de jouer !");
             if(game.getLvl() == Niveau.FACILE) {
                 Partie_IA.add_pion_naive(game);
+                game.getPartie().setNb_coups(game.getPartie().getNb_coups() + 1);
             } else if (game.getLvl() == Niveau.MOYEN){
                 Tree coups = Tree.minMaxProfondeur(game.getPartie(), 2);
                 game.setPartie(coups.getRoot().meilleurCoup());
@@ -283,7 +290,7 @@ public class Deroulement_partie {
                 coups.elagage();
                 game.setPartie(coups.getRoot().meilleurCoup());
                 }
-            Affichage.affichage(game.getPartie().getTab_de_jeu());
+            /*Affichage.affichage(game.getPartie().getTab_de_jeu());*/
             }
         return Deroulement_partie.save(game);
     }
