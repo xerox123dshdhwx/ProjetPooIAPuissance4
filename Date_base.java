@@ -1,12 +1,17 @@
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.*;
+import java.io.File;
 
+/**
+ * Classe qui permet d'avoir un chemin vers le fichier txt
+ */
 
-public class Date_base {
+public class Data_base {
 
     private  File  fichier = new File("leFichier.txt");
 
+    /** Fonction permettant d'accéder au fichier de sauvegarde
+     *
+     * @return le fichier de sauvegarde
+     */
     public  File getFichier() {
         return fichier;
     }
