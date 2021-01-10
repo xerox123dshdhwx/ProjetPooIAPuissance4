@@ -1,3 +1,6 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /** Cette classe contient les constructeurs permettant de lancer une nouvelle partie de
  * Puissance 4 entre deux joueurs humains
  *
@@ -5,16 +8,11 @@
  * @version 31/12/2020
  */
 
-
-import java.util.InputMismatchException;
-import java.util.MissingFormatArgumentException;
-import java.util.Scanner;
-import java.util.stream.Stream;
-
 public class New_partie {
     /**
      * Cree une partie avec parametre par defaut
      *
+     * @param n le numéro de sauvegarde de la partie
      * @return une nouvelle partie par defaut
      */
     public static Partie_humain partie_humain(int n) {
@@ -29,6 +27,7 @@ public class New_partie {
      * @param c  represente les colones
      * @param j1 represente le nom du joueur 1
      * @param j2 represente le nom du joueur 2
+     * @param n int, le numéro de sauvegarde
      * @return une nouvelle partie
      */
     public static Partie_humain partie_custom_humain_j(int l, int c, String j1, String j2, int n) {
@@ -40,6 +39,7 @@ public class New_partie {
      *
      * @param l represente les lignes
      * @param c represente les colones
+     * @param n int, numéro de sauvegarde
      * @return une nouvelle partie de humain
      */
     public static Partie_humain partie_custom_humain(int l, int c, int n) {
@@ -51,6 +51,7 @@ public class New_partie {
      *
      * @param j1 represente le nom du joueur 1
      * @param j2 represente le nom du joueur 2
+     * @param n int, numéro de sauvegarde
      * @return une nouvelle partie
      */
     public static Partie_humain partie_entre_humain_j(String j1, String j2, int n) {
@@ -66,7 +67,7 @@ public class New_partie {
     public static Partie_humain new_partie() {
         Partie_humain prth;
         Scanner sc = new Scanner(System.in);
-        System.out.println("voulez vous choisir un nom ou le laisser par defaut true or false:");
+        System.out.println("Voulez vous choisir un nom ou le laisser par defaut ? (True = oui, false = non)");
         boolean repi = isBoolean();
         if (repi){
 
@@ -86,7 +87,7 @@ public class New_partie {
 
 
             boolean val = false;
-            System.out.println("Voulez vous cree une parti custom (true or false) :");
+            System.out.println("Voulez vous cree une parti custom ? (True = oui, false = non)");
             val = isBoolean();
 
             if (val) {
@@ -107,7 +108,7 @@ public class New_partie {
 
             }
         } else {
-            System.out.println("voulez vous choisir de customiser la taille de la grille ? (true or false) :");
+            System.out.println("Voulez vous choisir de customiser la taille de la grille ? (True = oui, false = non)");
             boolean val = isBoolean();
             if (val) {
                 System.out.println("Ecrivez un entier representant le nombre de colone (chiffre >= 4) :");
@@ -129,7 +130,7 @@ public class New_partie {
         return prth;
     }
     /**
-     * new parti est une fonction qui utilise toute les foonction precedente pour cree une nouvelle partie
+     * Fonction qui utilise toute les foonction precedente pour cree une nouvelle partie
      * d'un joueur humain qui sera utiliser pour cree une partie ia
      *
      * @return une nouvelle partie d'humain choisi par l'utilisateur
@@ -137,7 +138,7 @@ public class New_partie {
     public static Partie_humain new_partie_bis() {
         Partie_humain prth;
         Scanner sc = new Scanner(System.in);
-        System.out.println("voulez vous choisir un nom ou le laisser par defaut :");
+        System.out.println("Voulez vous choisir un nom ou le laisser par defaut ? (True = oui, false = non)");
         boolean temp = isBoolean();
         if (temp) {
             String nom_du_joueur_1;
@@ -145,7 +146,7 @@ public class New_partie {
             nom_du_joueur_1 = sc.nextLine();
 
             boolean val = false;
-            System.out.println("Voulez vous cree une parti custom (true or false) :");
+            System.out.println("Voulez-vous customiser la grille ? (True = oui, false = non)");
             val = isBoolean();
             if (val = isBoolean()) {
                 System.out.println("Ecrivez un entier representant le nombre de colone :");
@@ -158,14 +159,13 @@ public class New_partie {
                 do{
                     l = isint();
                 }while(l <= 4);
-                prth = partie_custom_humain_j(l, c, nom_du_joueur_1, "ia", Charger_partie.compteur_du_nombre_de_save()+1);
-                prth.setJoueur_1(nom_du_joueur_1);
+                prth = partie_custom_humain_j(l, c, nom_du_joueur_1, "L'IA", Charger_partie.compteur_du_nombre_de_save()+1);
 
             } else {
-                prth = partie_entre_humain_j(nom_du_joueur_1, "ia", Charger_partie.compteur_du_nombre_de_save()+1);
+                prth = partie_entre_humain_j(nom_du_joueur_1, "L'IA", Charger_partie.compteur_du_nombre_de_save()+1);
             }
         } else {
-            System.out.println("voulez vous choisir de customiser la taille de la grille ? (true or false) :");
+            System.out.println("voulez vous choisir de customiser la taille de la grille ? (True = oui, false = non)");
             if (sc.nextBoolean()) {
                 System.out.println("Ecrivez un entier representant le nombre de colone :");
                 int c = -1;
@@ -226,12 +226,11 @@ public class New_partie {
         boolean x = true;
         Scanner scanner = new Scanner(System.in);
         do {
-            System.out.println("valeur bool :");
             try {
                 x = scanner.nextBoolean();
                 y = false;
             } catch (InputMismatchException e) {
-                System.out.println(String_color.ANSI_RED + "Erreur recommencer !!!! C'EST INACCEPTABLE"+ String_color.ANSI_PURPLE + " (ノಠ益ಠ)ノ彡┻━┻" + String_color.ANSI_RESET);
+                System.out.println(String_color.ANSI_RED + "Veuillez entrer un booléen" + String_color.ANSI_RESET);
                 y = true;
                 scanner.nextLine();
             }
@@ -240,19 +239,18 @@ public class New_partie {
     }
     /**
      * fonction qui permet de virifier si le int demander est bien un int et rien d'autres
-     * @return un boolean
+     * @return un int
      */
-    public static int isint() {
+    public static int isint(){
         boolean y = true;
-        int x = 0;
+        int x=0;
         Scanner scanner = new Scanner(System.in);
         do {
-            System.out.println("valeur int :");
             try {
                 x = scanner.nextInt();
                 y = false;
             } catch (InputMismatchException e) {
-                System.out.println("True");
+                System.out.println("Veuillez entrer un entier");
                 y = true;
                 scanner.nextLine();
             }
