@@ -4,8 +4,8 @@ import java.util.Random;
  * Puissance 4 contre une IA
  *
  *
- * @author AIT KHELIFA Tanina & BOUGHANMI Rami
- * @version 31/12/2020
+ * @author AIT KHELIFA Tanina
+ * @version 28/12/2020
  */
 
 //Pour évaluation : on compte le nombre de d'alignement et pions alignés + on soustrait l'évaluation ennemie = delta bg
