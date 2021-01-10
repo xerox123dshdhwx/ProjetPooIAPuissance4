@@ -1,16 +1,16 @@
 /** Cette classe contient une fonction permetant d'afficher le tableau en couleur
-        *
-        *
-        * @author BOUGHANMI Rami
-        * @version 11/11/2020
-        */
+ *
+ *
+ * @author AIT KHELIFA Tanina et BOUGHANMI Rami
+ * @version 11/11/2020
+ */
 
 public class Affichage {
 
     /**
-            * affiche le contenu d'un tableau en couleur de type char
-            *
-            * @param tab un tableau de char
+     * affiche le contenu d'un tableau en couleur de type char
+     *
+     * @param tab un tableau de char
      */
     public static void affichage(int[][] tab){
         //tab = new int [tab.length+1][tab[0].length+1];
