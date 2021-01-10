@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * les Node fils du Node actuel).
  *
  *
- * @author AIT KHELIFA Tanina & BOUGHANMI Rami
- * @version 31/12/2020
+ * @author AIT KHELIFA Tanina et BOUGHANMI Rami
+ * @version 24/12/2020
  */
 
 public class Node
@@ -28,20 +28,6 @@ public class Node
     {
         this.info = val;
     }
-
-
-    /** Méthode qui retourne le champ info d'une instance de la classe Node
-     *
-     * @return Partie_humain le champ info de l'objet courant
-     */
-    public Partie_humain getInfo() { return info; }
-
-
-    /** Méthode qui retourne le champ fils d'une instance de la classe Node
-     *
-     * @return ArrayList<Node> le champ fils de l'objet courant
-     */
-    public ArrayList<Node> getFils() {return this.fils;}
 
 
     /** Fonction qui permet de générer les possibilités de coup de l'IA sur un tour, à partir d'une partie en cours
