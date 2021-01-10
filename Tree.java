@@ -1,11 +1,11 @@
-public class Tree
-
 /** Cette classe permettra de modéliser les arbres de possibilité de coups des IA en cours de partie
  *
  *
- * @author AIT KHELIFA Tanina & BOUGHANMI Rami
- * @version 31/12/2020
+ * @author AIT KHELIFA Tanina et BOUGHANMI Rami
+ * @version 24/12/2020
  */
+
+public class Tree
 
 {
     private Node root;
@@ -27,10 +27,6 @@ public class Tree
      * @return Node, le champ root de l'objet courant
      */
     public Node getRoot(){return this.root;}
-
-    public boolean estVide() {
-        return (root == null);
-    }
 
     //Generation possibilités IA naive
 
@@ -56,7 +52,7 @@ public class Tree
      *
      * @param p instance de Partie_humain correspondant au champ partie d'une instance de Partie_IA
      * @param profondeur int, la profondeur souhaitée
-     * @return
+     * @return l'arbre contenant les possibilités sur p tours
      */
     public static Tree minMaxProfondeur(Partie_humain p, int profondeur){
         Tree retour = new Tree();
